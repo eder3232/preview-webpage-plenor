@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Material original del cliente (3.7 GB) y artefactos de trabajo.
+# Los derivados optimizados sí se versionan, en public/media y public/video.
+/tmp/
+
+# El ejemplo sí se versiona; los valores reales no.
+!.env.example
+
+# Posters intermedios generados por scripts/ (los usados son public/media/poster-*.webp)
+public/video/.*.png

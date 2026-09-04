@@ -1,69 +1,154 @@
 import Image from "next/image";
+import Link from "next/link";
+import type { Metadata } from "next";
+import { ArrowUpRight, LayoutGrid, ScrollText } from "lucide-react";
 
-export default function Home() {
+import { Logo } from "@/components/shared/logo";
+import { siteConfig } from "@/config/site";
+import { img } from "@/content/media";
+import { lotStats } from "@/content/lotes";
+
+export const metadata: Metadata = {
+  title: "Dos propuestas — Residencial Aonami",
+  description:
+    "Selector interno de las dos propuestas de sitio web para Residencial Aonami.",
+};
+
+/**
+ * SELECTOR DE PROPUESTAS
+ *
+ * Pantalla de presentación, no parte del sitio final. Existe para que el
+ * cliente pueda ver las dos propuestas una al lado de la otra y decir qué le
+ * gusta de cada una. Cuando se elija una dirección, esta página se reemplaza
+ * por la home de la propuesta ganadora.
+ */
+
+const PROPOSALS = [
+  {
+    slug: "/a",
+    key: "A",
+    name: "Verano",
+    concept: "Landing de una sola página",
+    claim: "Donde el verano se convierte en forma de vida",
+    image: "fogatas",
+    icon: ScrollText,
+    pitch:
+      "Vende el estilo de vida. Una sola página que se recorre de arriba abajo, con el video a pantalla completa, tipografía grande y mucho aire. El plano y los lotes aparecen al final, cuando la persona ya se enamoró del lugar.",
+    traits: [
+      "Una sola página + inventario de lotes aparte",
+      "Video en el hero, scroll cinematográfico",
+      "Fondo claro arena sillar, acentos en ocre",
+      "Menos datos, más atmósfera",
+    ],
+  },
+  {
+    slug: "/b",
+    key: "B",
+    name: "Plano",
+    concept: "Sitio de varias secciones",
+    claim: "203 lotes. 10 amenidades. Una sola decisión.",
+    image: "planimetria-casas",
+    icon: LayoutGrid,
+    pitch:
+      "Vende la inversión. Un sitio con navegación clara donde el masterplan y el buscador de lotes son los protagonistas desde el primer momento. Pensado para quien ya está comparando proyectos y quiere datos.",
+    traits: [
+      "Seis secciones con navegación permanente",
+      "Masterplan y buscador de lotes al frente",
+      "Fondo grafito, estructura de fichas",
+      "Más datos, más rutas a la conversión",
+    ],
+  },
+] as const;
+
+export default function ProposalPicker() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <main className="on-grafito flex min-h-dvh flex-col">
+      <header className="container-plenor flex items-center justify-between py-6">
+        <Logo as="lockup" variant="light" className="h-7 md:h-8" priority />
+        <span className="eyebrow text-muted-foreground">Propuestas de sitio web</span>
+      </header>
+
+      <div className="container-plenor flex flex-1 flex-col justify-center py-8 md:py-14">
+        <div className="max-w-2xl">
+          <h1 className="display text-4xl md:text-6xl">
+            Dos caminos para
+            <br />
+            <span className="text-ocre">Residencial Aonami</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-5 text-sm leading-relaxed text-muted-foreground md:text-base">
+            Mismo contenido, misma marca, mismos {lotStats.count} lotes. Cambia la
+            forma de contarlo. Entra a las dos, compáralas y dinos qué te gusta de
+            cada una: la versión final puede mezclarlas.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="mt-10 grid gap-4 md:mt-14 md:grid-cols-2 md:gap-6">
+          {PROPOSALS.map((p) => {
+            const cover = img(p.image);
+            return (
+              <Link
+                key={p.slug}
+                href={p.slug}
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-grafito-700/40 transition-colors hover:border-ocre/60"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <Image
+                    src={cover.src}
+                    alt=""
+                    fill
+                    sizes="(max-width: 767px) 100vw, 50vw"
+                    placeholder="blur"
+                    blurDataURL={cover.blurDataURL}
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-grafito via-grafito/20 to-transparent" />
+                  <div className="absolute left-4 top-4 flex size-9 items-center justify-center rounded-full bg-ocre font-semibold text-grafito">
+                    {p.key}
+                  </div>
+                </div>
+
+                <div className="flex flex-1 flex-col p-5 md:p-6">
+                  <div className="flex items-center gap-2 text-ocre">
+                    <p.icon className="size-3.5" />
+                    <span className="eyebrow">{p.concept}</span>
+                  </div>
+                  <h2 className="mt-2 text-2xl font-semibold tracking-tight md:text-3xl">
+                    Propuesta {p.key} · {p.name}
+                  </h2>
+                  <p className="mt-1 text-sm italic text-arena/70">“{p.claim}”</p>
+
+                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                    {p.pitch}
+                  </p>
+
+                  <ul className="mt-5 flex flex-col gap-1.5 text-xs text-muted-foreground">
+                    {p.traits.map((t) => (
+                      <li key={t} className="flex gap-2">
+                        <span className="mt-1.5 size-1 shrink-0 rounded-full bg-ocre" />
+                        {t}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <span className="mt-6 inline-flex items-center gap-1.5 self-start rounded-full bg-ocre px-4 py-2 text-sm font-semibold text-grafito transition-transform group-hover:translate-x-1">
+                    Ver propuesta {p.key}
+                    <ArrowUpRight className="size-4" />
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
         </div>
-      </main>
-    </div>
+      </div>
+
+      <footer className="container-plenor border-t border-white/10 py-5 text-xs text-muted-foreground">
+        <p>
+          Material de presentación interno · {siteConfig.developer} ·{" "}
+          <Link href="/libro-de-reclamaciones" className="underline underline-offset-2">
+            Libro de Reclamaciones
+          </Link>
+        </p>
+      </footer>
+    </main>
   );
 }

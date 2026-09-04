@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Material del cliente y artefactos de trabajo: no es código del proyecto.
+    "tmp/**",
+    // Generados por scripts/: se regeneran, no se editan a mano.
+    "src/content/*.generated.ts",
+    "src/content/lotes.data.ts",
   ]),
 ]);
 
