@@ -1,0 +1,128 @@
+/* ==========================================================================
+   ESTUDIO — hoja propia
+   No toca globals.css. Solo se carga en /estudio, así que nada de lo de aquí
+   afecta a las propuestas A y B.
+
+   Todo el "juego" de estilo global del configurador vive en estas variables:
+   el panel cambia un data-attribute en el contenedor raíz y el resto cae solo.
+   ========================================================================== */
+
+.studio {
+  /* --- Acento --------------------------------------------------------- */
+  --s-accent: var(--plenor-ocre);
+  --s-accent-ink: var(--plenor-grafito); /* texto ENCIMA del acento */
+  --s-accent-light: var(--plenor-ocre-600); /* acento sobre fondo claro */
+  --s-accent-dark: var(--plenor-ocre); /* acento sobre fondo oscuro */
+
+  /* --- Densidad vertical ---------------------------------------------- */
+  --s-pad: 5rem;
+
+  /* --- Tipografía de titulares ---------------------------------------- */
+  --s-display: var(--font-brand), ui-sans-serif, system-ui, sans-serif;
+  --s-display-weight: 600;
+  --s-display-tracking: -0.03em;
+  --s-display-leading: 0.95;
+
+  /* --- Radios: se pisa el token de shadcn dentro del estudio ----------- */
+  --radius: 0.5rem;
+
+  /* --- El acento manda sobre los componentes shadcn -------------------- */
+  --primary: var(--s-accent);
+  --primary-foreground: var(--s-accent-ink);
+  --ring: var(--s-accent);
+}
+
+/* --- Acentos ---------------------------------------------------------- */
+.studio[data-accent="terracota"] {
+  --s-accent: #8c5338;
+  --s-accent-ink: #faf8f5;
+  --s-accent-light: #8c5338;
+  --s-accent-dark: #c98a68;
+}
+.studio[data-accent="oliva"] {
+  --s-accent: #31463a;
+  --s-accent-ink: #faf8f5;
+  --s-accent-light: #31463a;
+  --s-accent-dark: #a9b7ab;
+}
+.studio[data-accent="verde"] {
+  --s-accent: #839485;
+  --s-accent-ink: #1f2328;
+  --s-accent-light: #5f7263;
+  --s-accent-dark: #a9b7ab;
+}
+
+/* --- Densidad --------------------------------------------------------- */
+.studio[data-density="compacta"] { --s-pad: 3.25rem; }
+.studio[data-density="normal"] { --s-pad: 5rem; }
+.studio[data-density="amplia"] { --s-pad: 7rem; }
+@media (min-width: 768px) {
+  .studio[data-density="compacta"] { --s-pad: 5rem; }
+  .studio[data-density="normal"] { --s-pad: 8rem; }
+  .studio[data-density="amplia"] { --s-pad: 11rem; }
+}
+
+/* --- Tipografía ------------------------------------------------------- */
+.studio[data-type="serif"] {
+  --s-display: var(--font-studio-serif), Georgia, "Times New Roman", serif;
+  --s-display-weight: 400;
+  --s-display-tracking: -0.015em;
+  --s-display-leading: 1;
+}
+.studio[data-type="grotesk"] {
+  --s-display: var(--font-studio-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --s-display-weight: 500;
+  --s-display-tracking: -0.045em;
+  --s-display-leading: 0.92;
+}
+
+/* --- Radios ----------------------------------------------------------- */
+.studio[data-radius="recto"] { --radius: 0.001rem; }
+.studio[data-radius="suave"] { --radius: 0.5rem; }
+.studio[data-radius="redondo"] { --radius: 1.25rem; }
+
+/* ==========================================================================
+   Utilidades del estudio. Prefijo `s-` para no chocar con las de globals.css.
+   ========================================================================== */
+
+.s-display {
+  font-family: var(--s-display);
+  font-weight: var(--s-display-weight);
+  letter-spacing: var(--s-display-tracking);
+  line-height: var(--s-display-leading);
+  text-wrap: balance;
+}
+
+/* Padding vertical gobernado por la densidad. */
+.s-section {
+  padding-block: var(--s-pad);
+}
+
+/* Acento como color de texto. La segunda regla es la que hace que en las
+   secciones oscuras se use la versión clara sin duplicar clases en el JSX. */
+.s-accent {
+  color: var(--s-accent-light);
+}
+.on-grafito .s-accent,
+.s-dark .s-accent {
+  color: var(--s-accent-dark);
+}
+
+.s-accent-bg {
+  background-color: var(--s-accent);
+  color: var(--s-accent-ink);
+}
+
+.s-accent-ring {
+  outline-color: var(--s-accent);
+}
+
+/* Ancla bajo el header fijo. */
+.s-anchor {
+  scroll-margin-top: 5rem;
+}
+
+/* Modo presentación: se esconde todo el andamiaje del configurador. */
+.studio[data-present="true"] .s-chrome {
+  display: none !important;
+}
